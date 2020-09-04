@@ -1,6 +1,9 @@
 const Discord = require('discord.js')
+const bot = new Discord.Client({
+    disableEveryone: true
+});
 
-module.exports.run = async (client, message, args) => {
+module.exports.run = async (bot, message, args) => {
     message.delete();
 
     if (message.deletable) {

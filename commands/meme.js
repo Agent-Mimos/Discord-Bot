@@ -1,9 +1,10 @@
-const db = require("quick.db");
 const Discord = require('discord.js');
 const got = require('got')
+const bot = new Discord.Client({
+    disableEveryone: true
+});
 
 module.exports.run = async (bot, message, args) => {
-
     const embed = new Discord.MessageEmbed()
     got('https://www.reddit.com/r/memes/random/.json').then(response => {
         let content = JSON.parse(response.body);
