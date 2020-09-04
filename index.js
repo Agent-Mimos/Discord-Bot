@@ -6,12 +6,12 @@ const {
 const time = require('moment-timezone');
 const moment = require("moment");
 const fs = require("fs");
-const bot = new Discord.Client({
+const client = new Discord.Client({
     disableEveryone: true
 });
 
-bot.commands = new Discord.Collection();
-bot.aliases = new Discord.Collection();
+client.commands = new Discord.Collection();
+client.aliases = new Discord.Collection();
 
 fs.readdir("./commands/", (err, files) => {
     if (err) console.log(err)
@@ -24,11 +24,11 @@ fs.readdir("./commands/", (err, files) => {
     jsfile.forEach((f, i) => {
         let props = require(`./commands/${f}`);
         console.log(` ✅ ${f} is succesfully loaded.`);
-        bot.commands.set(props.config.name, props);
+        client.commands.set(props.config.name, props);
         let pull = require(`./commands/${f}`);
-        bot.commands.set(pull.config.name, pull);
+        client.commands.set(pull.config.name, pull);
         pull.config.aliases.forEach(alias => {
-            bot.aliases.set(alias, pull.config.name)
+            client.aliases.set(alias, pull.config.name)
         });
     });
 });
@@ -39,12 +39,12 @@ fs.readdir("./events/", (err, files) => {
         const event = require(`./events/${file}`);
         let eventName = file.split(".")[0];
         console.log(`Loading ${eventName} event.`);
-        bot.on(eventName, event.bind(null, bot));
+        client.on(eventName, event.bind(null, client));
     });
 });
 
-bot.on("message", async message => {
-    if (message.author.bot || message.channel.type === "dm") return;
+client.on("message", async message => {
+    if (message.author.client || message.channel.type === "dm") return;
 
     let messageArray = message.content.split(" ");
     let cmd = messageArray[0].toLowerCase();
@@ -52,8 +52,8 @@ bot.on("message", async message => {
     if (!message.content.startsWith(prefix)) return;
 
     try {
-        let commandfile = bot.commands.get(cmd.slice(prefix.length)) || bot.commands.get(bot.aliases.get(cmd.slice(prefix.length)));
-        if (commandfile) commandfile.run(bot, message, args);
+        let commandfile = client.commands.get(cmd.slice(prefix.length)) || client.commands.get(client.aliases.get(cmd.slice(prefix.length)));
+        if (commandfile) commandfile.run(client, message, args);
         if (!commandfile) return;
         console.log("[" + moment.tz("America/New_York").format('HH:mm A') + `\u001b[0m` + "]" + ` Server: ${message.guild.name} | Channel: #${message.channel.name} | ${message.author.tag} used ${cmd}`)
     } catch (err) {
@@ -61,7 +61,7 @@ bot.on("message", async message => {
     }
 });
 
-bot.on("guildMemberAdd", async member => {
+client.on("guildMemberAdd", async member => {
     const welcome = member.guild.channels.cache.find(channel => channel.name === 'welcome');
     if (!welcome) return;
     welcome.send(`Welcome **${member} To **${member.guild.name}**`);
@@ -72,10 +72,10 @@ bot.on("guildMemberAdd", async member => {
         })
 });
 
-bot.on("guildMemberRemove", async member => {
+client.on("guildMemberRemove", async member => {
     const welcome = member.guild.channels.cache.find(channel => channel.name === 'welcome');
     if (!welcome) return;
     welcome.send(`**${member.user.tag} has left ${member.guild.name} :wave:**`)
 });
 
-bot.login(token)
+client.login(token)

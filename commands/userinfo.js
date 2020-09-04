@@ -1,11 +1,11 @@
 const Discord = require("discord.js");
 const dateFormat = require('dateformat')
 const moment = require('moment');
-const bot = new Discord.Client({
+const client = new Discord.Client({
     disableEveryone: true
 });
 
-module.exports.run = async (bot, message, args, functions) => {
+module.exports.run = async (client, message, args, functions) => {
     const userToCheck = message.mentions.members.first() || message.guild.members.cache.get(args[0]) || message.member;
 
     const statuses = {
@@ -45,7 +45,7 @@ module.exports.run = async (bot, message, args, functions) => {
             `**Joined Server:** ${joineddate} \n> ${joined} day(s) Ago`,
         ])
         .setTimestamp()
-        .setFooter(`Requested by: ${message.author.tag}`, bot.user.displayAvatarURL())
+        .setFooter(`Requested by: ${message.author.tag}`, client.user.displayAvatarURL())
 
     return message.channel.send(embed);
 };

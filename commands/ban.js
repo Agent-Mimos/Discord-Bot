@@ -1,9 +1,9 @@
 const Discord = require('discord.js');
-const bot = new Discord.Client({
+const client = new Discord.Client({
     disableEveryone: true
 });
 
-module.exports.run = async (bot, message, args) => {
+module.exports.run = async (client, message, args) => {
     if (!message.member.hasPermission("BAN_MEMBERS", "ADMINISTRATOR")) return message.channel.send("**You don't have permissions**")
     if (!message.guild.me.hasPermission("BAN_MEMBERS", "ADMINISTRATOR")) return message.channel.send("**I don't have permissions**")
 

@@ -1,10 +1,9 @@
 const Discord = require('discord.js');
 const moment = require('moment');
-const bot = new Discord.Client({
-    disableEveryone: true
-});
 
 module.exports.run = async (bot, message, args) => {
+    message.delete();
+
     const filterLevels = {
         DISABLED: 'Off',
         MEMBERS_WITHOUT_ROLES: 'No Role',
