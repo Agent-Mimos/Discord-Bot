@@ -14,8 +14,7 @@ module.exports.run = async (bot, message, args, functions) => {
         "idle": ":yellow_circle: Idle",
         "dnd": ":red_circle: Do Not Disturb"
     }
-
-    let x = Date.now() - userToCheck.createdAt;
+    
     let y = Date.now() - message.guild.members.cache.get(userToCheck.id).joinedAt;
     const joined = Math.floor(y / 86400000);
 
