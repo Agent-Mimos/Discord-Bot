@@ -45,7 +45,6 @@ module.exports.run = async (bot, message, args) => {
         timeout: 7000
     }));
     message.channel.send(banembed)
-
     member.send(new Discord.MessageEmbed().setColor("BLUE").setDescription(`**You have been banned from ${message.guild.name} for: \`${reason}\`**`)).catch(error => {
         return;
     })
@@ -55,5 +54,5 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
     name: "ban",
     aliases: ["b", "banish", "remove", "hammer"],
-    description: 'You can ban people'
+    description: ''
 }
