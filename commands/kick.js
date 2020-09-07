@@ -28,7 +28,6 @@ module.exports.run = async (bot, message, args) => {
         if (error) return message.channel.send(new Discord.MessageEmbed().setColor("RED").setDescription('⛔ Something went wrong'))
     })
 
-
     const kickembed = new Discord.MessageEmbed()
         .setTitle(`Member Kicked | ${member.user.tag}`)
         .setColor("BLUE")
@@ -42,7 +41,6 @@ module.exports.run = async (bot, message, args) => {
         timeout: 7000
     }));
     message.channel.send(kickembed);
-
     member.send(new Discord.MessageEmbed().setColor("BLUE").setDescription(`**You have been kicked from ${message.guild.name} for \`${reason}\`**`)).catch(error => {
         return;
     })
@@ -52,5 +50,5 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
     name: "kick",
     aliases: [],
-    description: 'You can ban people'
+    description: ''
 }
