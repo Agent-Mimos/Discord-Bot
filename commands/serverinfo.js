@@ -91,5 +91,5 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
     name: "serverinfo",
     aliases: [],
-    description: 'Shows the servers info'
+    description: ''
 }
