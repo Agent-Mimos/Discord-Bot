@@ -16,5 +16,5 @@ module.exports.run = async (bot, message, args) => {
 module.exports.config = {
     name: "ping",
     aliases: ["latency"],
-    description: 'Latency of the bot'
+    description: ''
 }
